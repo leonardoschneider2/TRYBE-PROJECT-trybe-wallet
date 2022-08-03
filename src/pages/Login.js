@@ -30,7 +30,7 @@ class Login extends React.Component {
     const passLen = 6;
     const com = 4;
     const { email, password } = this.state;
-    return (
+    return !(
       password.length >= passLen
       && !email.includes(' ')
       && email.includes('@')
@@ -52,7 +52,7 @@ class Login extends React.Component {
     const { email, password, disabled } = this.state;
     return (
       <div className="login">
-        <form className="login-form">
+        <form className="login-form" onSubmit={ this.callDispatch }>
           <label className="login-label" htmlFor="login-email">
             EMAIL:
             <input
@@ -79,10 +79,9 @@ class Login extends React.Component {
           </label>
           <button
             type="submit"
-            onClick={ this.callDispatch }
             disabled={ disabled }
           >
-            ENVIAR
+            ENTRAR
           </button>
         </form>
       </div>
