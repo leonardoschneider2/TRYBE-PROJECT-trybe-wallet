@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
-  wallets: '',
+  field: 0,
+  currencyField: 'BRL',
 };
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
