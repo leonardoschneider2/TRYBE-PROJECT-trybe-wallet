@@ -37,16 +37,16 @@ class Login extends React.Component {
       && email.split('@')[0].length > 0
       && email.split('@')[1].length > com
       && email.slice(email.length - com) === '.com'
-    ) {
-      return false;
-    } return true;
+    ) return false;
+    return true;
   }
 
-  callDispatch = () => {
+  callDispatch = (event) => {
+    event.preventDefault();
     const { email } = this.state;
     const { dispatchEmail, history } = this.props;
     dispatchEmail(email);
-    history.push('carteira');
+    history.push('/carteira');
   }
 
   render() {
