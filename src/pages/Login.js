@@ -30,15 +30,14 @@ class Login extends React.Component {
     const passLen = 6;
     const com = 4;
     const { email, password } = this.state;
-    if (
+    return (
       password.length >= passLen
       && !email.includes(' ')
       && email.includes('@')
       && email.split('@')[0].length > 0
       && email.split('@')[1].length > com
       && email.slice(email.length - com) === '.com'
-    ) return false;
-    return true;
+    );
   }
 
   callDispatch = (event) => {
