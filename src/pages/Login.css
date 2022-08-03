@@ -1,0 +1,18 @@
+.login-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+}
+
+.login-label {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+  width: 300px;
+}
+
+.login-email, .login-password {
+  width: 75%;
+}
