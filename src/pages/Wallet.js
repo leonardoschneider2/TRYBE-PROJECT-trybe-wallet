@@ -26,14 +26,10 @@ const mapStateToProps = (store) => ({
   currencyField: store.wallet.currencyField,
 });
 
-const mapDispatchToProps = () => ({
-
-});
-
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   field: PropTypes.number.isRequired,
   currencyField: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, null)(Wallet);
