@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { currencyFetch } from '../redux/actions';
+import { addField, currencyFetch } from '../redux/actions';
+
+const alimentacao = 'Alimentação';
 
 class WalletForm extends Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
       field: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: alimentacao,
     };
   }
 
@@ -27,22 +30,35 @@ class WalletForm extends Component {
     });
   }
 
-  addField = () => {
-
+  callAddField = (event) => {
+    event.preventDefault();
+    const {
+      field, description, currency, method, tag, id,
+    } = this.state;
+    const { addFieldInState } = this.props;
+    const expense = {
+      field, description, currency, method, tag, id,
+    };
+    addFieldInState(expense);
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      field: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: alimentacao,
+    }));
   }
 
   render() {
     const {
-      field,
-      description,
-      currency,
-      method,
-      tag,
+      field, description, currency, method, tag, id,
     } = this.state;
     const { currencies } = this.props;
 
     return (
       <form>
+        <span>{ id }</span>
         <input
           type="number"
           data-testid="value-input"
@@ -66,6 +82,7 @@ class WalletForm extends Component {
         >
           {
             currencies
+              .filter((ele) => ele !== 'USDT')
               .map((key, index) => (
                 <option key={ index }>
                   { key }
@@ -89,7 +106,7 @@ class WalletForm extends Component {
           onChange={ this.handleChange }
           name="tag"
         >
-          <option>Alimentação</option>
+          <option>{ alimentacao }</option>
           <option>Lazer</option>
           <option>Trabalho</option>
           <option>Transporte</option>
@@ -97,7 +114,7 @@ class WalletForm extends Component {
         </select>
         <button
           type="submit"
-          onClick={ this.addField }
+          onClick={ this.callAddField }
         >
           Adicionar Despesa
         </button>
@@ -112,10 +129,12 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   currencyDispatch: () => dispatch(currencyFetch()),
+  addFieldInState: (expense) => dispatch(addField(expense)),
 });
 
 WalletForm.propTypes = {
   currencyDispatch: PropTypes.func.isRequired,
+  addFieldInState: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf.isRequired,
 };
 
