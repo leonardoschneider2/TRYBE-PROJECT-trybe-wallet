@@ -29,7 +29,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       exchangeRates: action.payload,
-      currencies: Object.keys(action.payload),
+      currencies: Object.keys(action.payload).filter((usdt) => usdt !== 'USDT'),
       ok: true,
       loading: false,
     };
