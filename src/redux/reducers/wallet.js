@@ -9,6 +9,7 @@ import {
 const INITIAL_STATE = {
   field: 0.00,
   exchangeRates: {},
+  currencyField: 'BRL',
   currencies: [],
   ok: true,
   loading: false,

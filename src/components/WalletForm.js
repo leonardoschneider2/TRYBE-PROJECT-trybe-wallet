@@ -84,7 +84,7 @@ class WalletForm extends Component {
             currencies
               .filter((ele) => ele !== 'USDT')
               .map((key, index) => (
-                <option key={ index }>
+                <option data-testid={ `currency-${key}` } key={ index }>
                   { key }
                 </option>
               ))
@@ -135,7 +135,7 @@ const mapDispatchToProps = (dispatch) => ({
 WalletForm.propTypes = {
   currencyDispatch: PropTypes.func.isRequired,
   addFieldInState: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

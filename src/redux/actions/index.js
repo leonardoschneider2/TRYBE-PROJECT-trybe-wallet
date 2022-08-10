@@ -1,5 +1,3 @@
-import currencyFetchAPI from '../../services/currencyFetchAPI';
-
 export const TYPE_EMAIL = 'TYPE_EMAIL';
 export const TYPE_THUNK_CURRENCY_FETCH = 'TYPE_THUNK_CURRENCY_FETCH';
 // Loading request para usar sempre que fizer requisição API
@@ -11,6 +9,14 @@ export const RECEIVE_CURRENCY_FAILURE = 'RECEIVE_CURRENCY_FAILURE';
 export const RECEIVE_TOTAL_FIELD = 'RECEIVE_TOTAL_FIELD';
 export const RECEIVE_ADD_FIELD_SUCCESS = 'RECEIVE_ADD_FIELD_SUCCESS';
 export const RECEIVE_ADD_FIELD_FAILURE = 'RECEIVE_ADD_FIELD_FAILURE';
+
+const currencyFetchAPI = async () => {
+  const response = await fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((resolve) => resolve.json())
+    .then((json) => Promise.resolve(json))
+    .catch((json) => Promise.reject(json));
+  return response;
+};
 
 // Coloque aqui suas actions
 const dispatchEmailToStore = (email) => ({

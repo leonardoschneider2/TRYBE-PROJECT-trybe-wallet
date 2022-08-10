@@ -6,74 +6,109 @@ class Table extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      expenses.map((expense, index) => {
-        const { value, description, currency, method, tag, id } = expense;
-        return (
-          <div
-            className="table-expense"
-            key={ `expense-${index}` }
-          >
+      <table>
+        <tr className="table-expense">
+          <th>Descrição</th>
 
-            <div
-              className="table-component table-id"
-              id={ `table-id-${index}` }
-            >
-              <span>NÚMERO DO IDENTIFICADOR: </span>
-              <span>{ id }</span>
-            </div>
+          <th>Tag</th>
 
-            <div
-              className="table-component table-field"
-              id={ `table-field-${index}` }
-            >
-              <span>VALOR DA DESPESA: </span>
-              <span>{ value }</span>
-            </div>
+          <th>Método de pagamento</th>
 
-            <div
-              className="table-component table-description"
-              id={ `table-description-${index}` }
-            >
-              <span>DESCRIÇÃO: </span>
-              <span>{ description }</span>
-            </div>
+          <th>Valor</th>
 
-            <div
-              className="table-component table-currency"
-              id={ `table-currency-${index}` }
-            >
-              <span>MOEDA: </span>
-              <span>{ currency }</span>
-            </div>
+          <th>Moeda</th>
 
-            <div
-              className="table-component table-method"
-              id={ `table-method-${index}` }
-            >
-              <span>MÉTODO DE PAGAMENTO: </span>
-              <span>{ method }</span>
-            </div>
+          <th>Câmbio utilizado</th>
 
-            <div
-              className="table-component table-tag"
-              id={ `table-tag-${index}` }
-            >
-              <span>tag: </span>
-              <span>{ tag }</span>
-            </div>
-            <div
-              className="table-component table-tag"
-              id={ `table-tag-${index}` }
-            >
-              <button
-                type="button"
-              >
-                REMOVER DISPESA
-              </button>
-            </div>
-          </div>
-        );
-      })
+          <th>Valor convertido</th>
+
+          <th>Moeda de conversão</th>
+
+          <th>Editar/Excluir</th>
+        </tr>
+        <tbody>
+          {
+            expenses.map((expense, index) => {
+              const {
+                exchangeRates, value, description, currency, method, tag,
+              } = expense;
+              return (
+                <tr
+                  className="table-expense"
+                  key={ `expense-${index}` }
+                >
+                  <td
+                    className="table-component table-description"
+                    id={ `table-description-${index}` }
+                  >
+                    { description }
+                  </td>
+
+                  <td
+                    className="table-component table-tag"
+                    id={ `table-tag-${index}` }
+                  >
+                    { tag }
+                  </td>
+
+                  <td
+                    className="table-component table-method"
+                    id={ `table-method-${index}` }
+                  >
+                    { method }
+                  </td>
+
+                  <td
+                    className="table-component table-field"
+                    id={ `table-field-${index}` }
+                  >
+                    { parseFloat(value).toFixed(2) }
+                  </td>
+
+                  <td
+                    className="table-component table-currency"
+                    id={ `table-currency-${index}` }
+                  >
+                    { exchangeRates[currency].name }
+                  </td>
+
+                  <td
+                    className="table-component table-id"
+                    id={ `table-id-${index}` }
+                  >
+                    { parseFloat(exchangeRates[currency].ask).toFixed(2) }
+                  </td>
+
+                  <td
+                    className="table-component table-id"
+                    id={ `table-id-${index}` }
+                  >
+                    { (value * exchangeRates[currency].ask).toFixed(2) }
+                  </td>
+
+                  <td
+                    className="table-component table-id"
+                    id={ `table-id-${index}` }
+                  >
+                    BRL
+                  </td>
+
+                  <td
+                    className="table-component table-tag"
+                    id={ `table-tag-${index}` }
+                  >
+                    <button
+                      type="button"
+                    >
+                      REMOVER DISPESA
+                    </button>
+                  </td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
     );
   }
 }
@@ -87,7 +122,7 @@ const mapDispatchToProps = (/* dispatch */) => ({
 });
 
 Table.propTypes = {
-  expenses: PropTypes.arrayOf.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

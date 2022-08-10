@@ -1,4 +1,4 @@
-const mockData = {
+export const mockData = {
   USD: {
     code: 'USD',
     codein: 'BRL',
@@ -209,4 +209,17 @@ const mockData = {
   },
 };
 
-export default mockData;
+export const INITIAL_STATE = {
+  user: {
+    email: 'caralho@borracha',
+  },
+  wallet: {
+    field: 10,
+    exchangeRates: mockData,
+    currencies: Object.keys(mockData),
+    ok: true,
+    loading: false,
+    expenses: [],
+    currencyField: 'BRL',
+  },
+};
